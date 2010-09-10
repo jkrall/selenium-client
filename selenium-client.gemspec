@@ -1,5 +1,3 @@
-require 'rake'
-
 Gem::Specification.new do |s|
   s.name = "selenium-client"
   s.summary = "Official Ruby Client for Selenium RC."
@@ -9,7 +7,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://selenium-client.rubyforge.com"
   s.rubyforge_project = 'selenium-client'
   s.platform = Gem::Platform::RUBY
-  s.files = FileList['lib/**/*.rb'] +  FileList['examples/**/*.rb']
+  s.files = Dir.glob("{lib,examples}/**/*.rb")
   s.require_path = "lib"
   s.extensions = []
   s.rdoc_options << '--title' << 'Selenium Client' << '--main' << 'README' << '--line-numbers'
