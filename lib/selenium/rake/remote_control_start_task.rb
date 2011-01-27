@@ -1,10 +1,10 @@
 module Selenium
   module Rake
-  
+
     # Rake tasks to start a Remote Control server.
-    # 
-    # require 'selenium/rake/tasks' 
-    # 
+    #
+    # require 'selenium/rake/tasks'
+    #
     # Selenium::Rake::RemoteControlStartTask.new do |rc|
     #   rc.port = 4444
     #   rc.timeout_in_seconds = 3 * 60
@@ -13,17 +13,17 @@ module Selenium
     #   rc.jar_file = "/path/to/where/selenium-rc-standalone-jar-is-installed"
     #   rc.additional_args << "-singleWindow"
     # end
-    # 
+    #
     # If you do not explicitly specify the path to selenium remote control jar
     # it will be "auto-discovered" in `vendor` directory using the following
     # path : `vendor/selenium-remote-control/selenium-server*-standalone.jar`
-    # 
-    # To leverage the latest selenium-client capabilities, you may need to download 
-    # a recent nightly build of a standalone packaging of Selenium Remote 
-    # Control. You will find the nightly build at 
+    #
+    # To leverage the latest selenium-client capabilities, you may need to download
+    # a recent nightly build of a standalone packaging of Selenium Remote
+    # Control. You will find the nightly build at
     # http://nexus.openqa.org/content/repositories/snapshots/org/seleniumhq/selenium/server/selenium-server/
     class RemoteControlStartTask
-      attr_accessor :port, :timeout_in_seconds, :background, 
+      attr_accessor :host, :port, :timeout_in_seconds, :background,
                     :wait_until_up_and_running, :additional_args,
                     :log_to, :nohup
       attr_reader :jar_file
@@ -32,6 +32,7 @@ module Selenium
 
       def initialize(name = :'selenium:rc:start')
         @name = name
+        @host = 'localhost'
         @port = 4444
         @timeout_in_seconds = 5
         project_specific_jar = Dir[JAR_FILE_PATTERN].first
@@ -43,11 +44,11 @@ module Selenium
         yield self if block_given?
         define
       end
-    
+
       def jar_file=(new_jar_file)
         @jar_file = File.expand_path(new_jar_file)
       end
-      
+
       def define
         desc "Launch Selenium Remote Control"
         task @name do

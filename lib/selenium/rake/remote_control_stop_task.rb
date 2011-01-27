@@ -8,14 +8,14 @@ module Selenium
     #   rc.port = 4444
     #   rc.timeout_in_seconds = 3 * 60
     # end
-    #    
+    #
     class RemoteControlStopTask
       attr_accessor :host, :port, :timeout_in_seconds, :wait_until_stopped,
                     :shutdown_command
 
       def initialize(name = :'selenium:rc:stop')
-        @host = "localhost"
         @name = name
+        @host = "localhost"
         @port = 4444
         @timeout_in_seconds = nil
         @shutdown_command = nil
@@ -23,7 +23,7 @@ module Selenium
         yield self if block_given?
         define
       end
-    
+
       def define
         desc "Stop Selenium Remote Control running"
         task @name do
